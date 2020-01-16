@@ -49,6 +49,10 @@ module Jenkins
         content = JSON.parse(@server.get("#{url}/api/json").body)
         return Build.new(content["lastSuccessfulBuild"], @server)
       end
+      def builds
+        content = JSON.parse(@server.get("#{url}/api/json").body)
+        return content["builds"].map{|b|Build.new(b, @server)}
+      end
     end
   end
 end
